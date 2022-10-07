@@ -27,7 +27,7 @@ const gameSchema = new Schema({
     genre: String,
     subGenre: String,
     content: [{
-        contentTitle: String,
+        header: String,
         description: String
     }],
     images: [{
