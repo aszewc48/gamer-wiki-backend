@@ -8,15 +8,11 @@ const gameSchema = new Schema({
         required: true
     },
     releaseDate: [{
-        platform: String,
+        platforms: String,
         time: [{
-            country: String,
             release: String
         }]
         }],
-    platforms: [{
-        platformName: String
-    }],
     mainImage: String,
     developer: [{
         developerName: String

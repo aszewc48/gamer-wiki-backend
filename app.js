@@ -30,7 +30,23 @@ app.locals.appTitle = `${capitalized(projectName)} created with IronLauncher`;
 
 // 👇 Start handling routes here
 const index = require("./routes/index.routes");
+const genreRoutes = require('./routes/genre.routes')
+const subGenreRoutes = require('./routes/subGenre.routes')
+const mainImageRoutes = require('./routes/mainImage.routes')
+const producerNameRoutes = require('./routes/producerName.routes')
+const developerNameRoutes = require('./routes/developerName.routes')
+const releaseDateRoutes = require('./routes/releaseDate.routes')
+const imagesRoutes = require('./routes/images.routes')
+const contentRoutes = require('./routes/content.routes')
 app.use("/", index);
+app.use("/edit", genreRoutes);
+app.use("/edit", subGenreRoutes)
+app.use("/edit", mainImageRoutes)
+app.use("/edit", producerNameRoutes)
+app.use("/edit", developerNameRoutes)
+app.use("/edit", releaseDateRoutes)
+app.use("/edit", imagesRoutes)
+app.use("/edit", contentRoutes)
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
