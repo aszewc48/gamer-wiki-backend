@@ -39,4 +39,14 @@ router.post('/create/content', (req,res,next) => {
 
 })
 
+router.delete('/delete/content/:gameId', (req,res,next) => {
+    const {gameId} = req.params
+    Content.findByIdAndRemove(gameId)
+    .then(deletedContent => {
+        console.log(deletedContent)
+        res.json({message: 'DELETE worked', gameId, content: deletedContent})
+    })
+    .catch(err => console.log(err))
+})
+
 module.exports = router

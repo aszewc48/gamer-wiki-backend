@@ -15,6 +15,16 @@ router.put('/update/url/:gameId', (req,res,next) => {
         .catch(err => console.log(err))
 })
 
+router.delete('/delete/url/:gameId', (req,res,next) => {
+    const {gameId} = req.params
+    Images.findByIdAndRemove(gameId)
+    .then(deletedUrl => {
+        console.log(deletedUrl)
+        res.json({message: 'DELETE worked', gameId, images: deletedUrl})
+    })
+    .catch(err => console.log(err))
+})
+
 router.post('/create/url', (req,res,next) => {
     const {url,gameId} = req.body
     let newUrl

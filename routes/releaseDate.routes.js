@@ -33,8 +33,25 @@ router.put('/update/platform/:gameId', (req,res,next) => {
     ReleaseDate.findByIdAndUpdate(gameId,{
             platform
     })
-        .then(platformData => res.json({message: 'POST success', game: platformData}))
+        .then(platformData => res.json({message: 'PUT success', game: platformData}))
         .catch(err => console.log(err))
+})
+
+router.delete('/delete/platform/:gameId', (req,res,next) => {
+    const {gameId} = req.params
+    ReleaseDate.findByIdAndRemove(gameId)
+    .then(deletedPlatform => {
+        console.log('Deleted Platfrom Data:', deletedPlatform)
+        return Promise.all(deletedPlatform.time.map(t => Time.findByIdAndRemove(t)))
+        
+        //Time.deleteMany({game: gameId}).then(() => {})
+        
+    })
+    .then(deletedTimeArray => {
+        console.log(deletedTimeArray)
+        res.json({message: 'DELETE worked', gameId, deletedTimeArray})
+    })
+    .catch(err => console.log(err))
 })
 
 router.post('/create/release', (req,res,next) => {
@@ -64,8 +81,18 @@ router.put('/update/release/:gameId', (req,res,next) => {
     Time.findByIdAndUpdate(gameId,{
             release
     })
-        .then(releaseData => res.json({message: 'POST success', game: releaseData}))
+        .then(releaseData => res.json({message: 'PUT success', game: releaseData}))
         .catch(err => console.log(err))
+})
+
+router.delete('/delete/release/:gameId', (req,res,next) => {
+    const {gameId} = req.params
+    Time.findByIdAndRemove(gameId)
+    .then(deletedRelease => {
+        console.log(deletedRelease)
+        res.json({message: 'DELETE worked', gameId, time: deletedRelease})
+    })
+    .catch(err => console.log(err))
 })
 
 module.exports = router

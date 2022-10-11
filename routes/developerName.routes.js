@@ -15,6 +15,16 @@ router.put('/update/developer-name/:gameId', (req,res,next) => {
         .catch(err => console.log(err))
 })
 
+router.delete('/delete/developer-name/:gameId', (req,res,next) => {
+    const {gameId} = req.params
+    Developer.findByIdAndRemove(gameId)
+    .then(deletedDeveloperName => {
+        console.log(deletedDeveloperName)
+        res.json({message: 'DELETE worked', gameId, developer: deletedDeveloperName})
+    })
+    .catch(err => console.log(err))
+})
+
 router.post('/create/developer-name', (req,res,next) => {
     const {developerName,gameId} = req.body
     let newDeveloperName

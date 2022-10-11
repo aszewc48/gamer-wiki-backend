@@ -7,7 +7,8 @@ const Developer = require('../models/Developer.model')
 const ReleaseDate = require('../models/ReleaseDate.model')
 const Time = require('../models/Time.model')
 const Images = require('../models/Images.model')
-const Content = require('../models/Content.model')
+const Content = require('../models/Content.model');
+const { isAuthenticated } = require("../middlewares/jwt.middleware");
 
 /* GET home page */
 router.get("/", (req, res, next) => {
@@ -34,6 +35,30 @@ router.post('/create', (req,res,next) => {
   
     router.get('/gamebox', (req,res,next) => {
       GameEdit.find()
+      .populate({
+        path: 'releaseDate',
+        populate: {
+          path: 'time',
+          path: 'gameEdit'
+        }
+      })
+      .populate({
+        path: 'developer',
+        populate: {
+          path: 'gameEdit'
+        }
+      })
+      .populate({
+        path: 'producer',
+        populate: {
+          path: 'gameEdit'
+        }
+      })
+      .populate('content images')
+      // .populate('developer')
+      // .populate('producer')
+      // .populate('content')
+      // .populate('images')
         .then(gameBoxData => {
           console.log(gameBoxData)
           res.json({message: 'GET success', games: gameBoxData})

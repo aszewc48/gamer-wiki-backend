@@ -27,7 +27,7 @@ const capitalized = require("./utils/capitalized");
 const projectName = "gamer-wiki-backend";
 
 app.locals.appTitle = `${capitalized(projectName)} created with IronLauncher`;
-
+const {isAuthenticated} = require('./middlewares/jwt.middleware')
 // 👇 Start handling routes here
 const index = require("./routes/index.routes");
 const genreRoutes = require('./routes/genre.routes')
@@ -38,15 +38,17 @@ const developerNameRoutes = require('./routes/developerName.routes')
 const releaseDateRoutes = require('./routes/releaseDate.routes')
 const imagesRoutes = require('./routes/images.routes')
 const contentRoutes = require('./routes/content.routes')
+const authRoutes = require('./routes/auth.routes')
 app.use("/", index);
-app.use("/edit", genreRoutes);
-app.use("/edit", subGenreRoutes)
-app.use("/edit", mainImageRoutes)
-app.use("/edit", producerNameRoutes)
-app.use("/edit", developerNameRoutes)
-app.use("/edit", releaseDateRoutes)
-app.use("/edit", imagesRoutes)
-app.use("/edit", contentRoutes)
+app.use("/edit", isAuthenticated, genreRoutes);
+app.use("/edit", isAuthenticated, subGenreRoutes)
+app.use("/edit", isAuthenticated, mainImageRoutes)
+app.use("/edit", isAuthenticated, producerNameRoutes)
+app.use("/edit", isAuthenticated, developerNameRoutes)
+app.use("/edit", isAuthenticated, releaseDateRoutes)
+app.use("/edit", isAuthenticated, imagesRoutes)
+app.use("/edit", isAuthenticated, contentRoutes)
+app.use("/auth", authRoutes)
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
