@@ -8,12 +8,32 @@ const {isAuthenticated} = require('../middlewares/jwt.middleware')
 const User = require('../models/User.model')
 
 router.post('/signup', (req,res,next) => {
-    const {email,username,password} = req.body
-    if(!email || !username || !password){
+    const {email,username,password, confirmPassword} = req.body
+    if(!email || !username || !password || !confirmPassword){
+        console.log('hi')
         res.json({error: 'Inputs required'})
         return
     }
+    if(password !== confirmPassword){
+        console.log('hi')
+        res.json({error: 'Passwords must match'})
+    }
+    User.findOne({ username })
+    .then(foundUser => {
 
+      if(foundUser){
+        console.log('hi')
+        res.json({ error: 'Username already exists '})
+        return;
+      }
+    User.findOne({ email })
+    .then(foundEmail => {
+        if(foundEmail){
+            console.log('hi')
+            res.json({ error: 'Email already exists'})
+        }
+    }
+        )
     User.create({
         email,
         username,
@@ -25,8 +45,17 @@ router.post('/signup', (req,res,next) => {
     })
     .catch(err => {
         console.log(err)
-        res.json({error: err})
+        res.json({error: 'Error creating user', err})
     })
+    .catch(err => {
+        console.log(err)
+        res.json({message: 'Error validating email', err})
+    })
+    .catch(err => {
+        console.log(err)
+        res.json({message: 'Error validating username', err})
+    })
+})
 })
 
 router.post('/login', (req,res,next) => {

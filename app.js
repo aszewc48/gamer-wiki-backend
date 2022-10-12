@@ -39,6 +39,7 @@ const releaseDateRoutes = require('./routes/releaseDate.routes')
 const imagesRoutes = require('./routes/images.routes')
 const contentRoutes = require('./routes/content.routes')
 const authRoutes = require('./routes/auth.routes')
+const checkRoutes = require('./routes/check.routes')
 app.use("/", index);
 app.use("/edit", isAuthenticated, genreRoutes);
 app.use("/edit", isAuthenticated, subGenreRoutes)
@@ -49,6 +50,7 @@ app.use("/edit", isAuthenticated, releaseDateRoutes)
 app.use("/edit", isAuthenticated, imagesRoutes)
 app.use("/edit", isAuthenticated, contentRoutes)
 app.use("/auth", authRoutes)
+app.use("/check", checkRoutes)
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
