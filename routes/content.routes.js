@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const axios = require('axios')
-const Game = require('../models/Game.model')
 const GameEdit = require('../models/GameEdit.model')
 const Content = require('../models/Content.model')
 

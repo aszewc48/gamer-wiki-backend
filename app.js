@@ -40,6 +40,7 @@ const imagesRoutes = require('./routes/images.routes')
 const contentRoutes = require('./routes/content.routes')
 const authRoutes = require('./routes/auth.routes')
 const checkRoutes = require('./routes/check.routes')
+const deleteAllRoutes = require('./routes/deleteAll.routes')
 app.use("/", index);
 app.use("/edit", isAuthenticated, genreRoutes);
 app.use("/edit", isAuthenticated, subGenreRoutes)
@@ -49,6 +50,7 @@ app.use("/edit", isAuthenticated, developerNameRoutes)
 app.use("/edit", isAuthenticated, releaseDateRoutes)
 app.use("/edit", isAuthenticated, imagesRoutes)
 app.use("/edit", isAuthenticated, contentRoutes)
+app.use("/edit", isAuthenticated, deleteAllRoutes)
 app.use("/auth", authRoutes)
 app.use("/check", checkRoutes)
 

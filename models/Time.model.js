@@ -6,6 +6,10 @@ const timeSchema = new Schema ({
     releaseDate: {
         type: Schema.Types.ObjectId,
         ref: 'ReleaseDate'
+    },
+    gameEdit: {
+        type: Schema.Types.ObjectId,
+        ref: 'ReleaseDate'
     }
 })
 
